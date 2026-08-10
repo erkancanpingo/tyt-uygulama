@@ -1,0 +1,39 @@
+{
+  "_readme": "Tüm sabit değerler burada toplanır. Süre birimleri dakikadır. Günün saat şablonu 'gunSablonu' dizisidir; sırayla uygulanır ve her gün aynıdır. 'blok' tipi olan girişlere müfredattan sırayla konu atanır, diğerleri sabit/genel aktivitelerdir. Farklı bir güne/şablona uyarlamak için sadece bu dosyayı değiştirin. 'oturumBolme' bir konunun kaç ayrı çalışma oturumuna bölüneceğini belirler (bkz. lib/curriculum.ts → konuOturumSayisi).",
+
+  "toplamGun": 90,
+  "gunBaslangicSaati": "09:00",
+  "haftaSonuTatil": true,
+  "haftaSonuGunleri": [0, 6],
+
+  "gunSablonu": [
+    { "tip": "acilis", "sureDk": 10 },
+    { "tip": "blok_calisma", "sureDk": 45 },
+    { "tip": "mola", "sureDk": 15 },
+    { "tip": "blok_test", "sureDk": 45 },
+    { "tip": "mola", "sureDk": 15 },
+    { "tip": "paragraf", "sureDk": 30 },
+    { "tip": "kitap_okuma", "sureDk": 50 },
+    { "tip": "ogle_arasi", "sureDk": 60 },
+    { "tip": "blok_calisma", "sureDk": 45 },
+    { "tip": "mola", "sureDk": 15 },
+    { "tip": "blok_test", "sureDk": 45 },
+    { "tip": "mola", "sureDk": 15 },
+    { "tip": "blok_calisma", "sureDk": 45 },
+    { "tip": "mola", "sureDk": 15 },
+    { "tip": "blok_test", "sureDk": 45 },
+    { "tip": "gun_sonu", "sureDk": 45 }
+  ],
+
+  "oturumBolme": {
+    "_readme": "hamSayi = round(oncelikAgirlik[konu.oncelik] * 0.5 + konu.ortSoru / sorularBasinaOturum); 1..maxOturumSayisi aralığına sıkıştırılır.",
+    "maxOturumSayisi": 6,
+    "sorularBasinaOturum": 5,
+    "oncelikAgirlik": { "yuksek": 3, "orta": 2, "dusuk": 1 }
+  },
+
+  "kaynakMufredatDosyasi": "2027_TYT_Calisma_Plani.md",
+  "curriculumDosyasi": "curriculum.json",
+  "scheduleDosyasi": "schedule.json",
+  "logDosyasi": "log.json"
+}
