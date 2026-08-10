@@ -38,3 +38,26 @@ git clone "$REPO_URL" "$HEDEF"
 cd "$HEDEF"
 chmod +x setup.sh update.sh uninstall.sh TYT_Baslat.command 2>/dev/null || true
 ./setup.sh
+
+# Masaüstüne, gerçek kurulum yerine (HEDEF) yönlenen küçük bir başlatıcı
+# bırakılır — kurulum nereye yapılırsa yapılsın (varsayılan ya da özel bir
+# yol), çift tıklandığında doğru klasördeki TYT_Baslat.command'ı çalıştırır.
+MASAUSTU="$HOME/Desktop"
+MASAUSTU_DOSYASI="$MASAUSTU/TYT_Baslat.command"
+if [[ -d "$MASAUSTU" ]]; then
+  cat > "$MASAUSTU_DOSYASI" <<EOF2
+#!/usr/bin/env bash
+# TYT Çalışma Takip — masaüstü başlatıcısı (install.sh tarafından oluşturuldu).
+# Gerçek uygulama şurada kurulu: $HEDEF
+exec "$HEDEF/TYT_Baslat.command"
+EOF2
+  chmod +x "$MASAUSTU_DOSYASI"
+  echo ""
+  echo "🖥️  Masaüstünüze bir başlatıcı bırakıldı: $MASAUSTU_DOSYASI"
+  echo "   Bundan sonra uygulamayı açmak için masaüstündeki bu dosyaya"
+  echo "   çift tıklamanız yeterli."
+else
+  echo ""
+  echo "Not: $MASAUSTU bulunamadığı için masaüstü başlatıcısı oluşturulamadı."
+  echo "     Uygulamayı $HEDEF/TYT_Baslat.command dosyasına çift tıklayarak açabilirsiniz."
+fi
