@@ -36,10 +36,15 @@ if [[ -n "$KAYNAK" ]]; then
   fi
 fi
 
-if [[ -n "$YEREL_KOK" ]]; then
-  PROJE_KOKU="$YEREL_KOK"
-elif [[ -n "$HEDEF_ARG" ]]; then
+# Açık argüman (örn. npx kabuğunun bilerek geçtiği gerçek hedef) her zaman
+# BASH_SOURCE tahmininden önce gelir — npx gibi bir sarmalayıcı üzerinden
+# çalışırken, bu betiğin FİZİKSEL olarak durduğu yer (npx'in geçici
+# önbelleği, o da bir git deposu olduğu için YEREL_KOK testini geçebilir)
+# gerçek kurulum yeriyle KARIŞTIRILMAMALI.
+if [[ -n "$HEDEF_ARG" ]]; then
   PROJE_KOKU="$HEDEF_ARG"
+elif [[ -n "$YEREL_KOK" ]]; then
+  PROJE_KOKU="$YEREL_KOK"
 else
   PROJE_KOKU="$VARSAYILAN_HEDEF"
 fi
