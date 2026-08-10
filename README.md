@@ -22,12 +22,30 @@ Zaten klonlanmış bir kopyanız varsa, klasörün içinden de çalıştırabili
 ./setup.sh   # eksikse Homebrew + Node.js kurar, npm bağımlılıklarını yükler
 ```
 
-**Güncelleme almak için** (yeni bir sürüm çıktığında), proje klasörünün
-içinden:
+**Güncelleme almak için** (yeni bir sürüm çıktığında) — tek satırla, hiçbir
+şey klonlamadan, herhangi bir yerden:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/erkancanpingo/tyt-uygulama/main/update.sh | bash
+```
+
+Bu, `~/tyt-uygulama` altındaki kurulu kopyayı bulup günceller (farklı bir
+klasöre kurduysanız: `curl ... | bash -s -- /kurulu/yol`). Proje klasörünün
+içindeyseniz de aynı işi yapan kısayol:
 
 ```bash
 ./update.sh   # git pull + npm install — çalışma veriniz ETKİLENMEZ
 ```
+
+**Kaldırmak için**, proje klasörünün içinden:
+
+```bash
+./uninstall.sh                # node_modules/.next gibi kurulum dosyalarını siler
+./uninstall.sh --veri-de-sil  # + çalışma verinizi de siler (ayrıca "SİL" yazarak onay ister)
+```
+
+Varsayılan olarak çalışma veriniz (`~/Library/Application Support/tyt-uygulama/`)
+`uninstall.sh` çalıştırıldığında SİLİNMEZ.
 
 Kurulumdan sonra, **her gün uygulamayı açmak için** proje klasöründeki
 `TYT_Baslat.command` dosyasına Finder'da çift tıklamanız yeterli — sunucuyu
