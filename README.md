@@ -6,8 +6,27 @@ ilerlemesini/aksamalarını takip eden, tek kullanıcılı, dosya tabanlı
 
 ## Hızlı Başlangıç (macOS)
 
+**Hiçbir şey indirmeden, tek satırla kurulum** (herhangi bir Mac'te):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/erkancanpingo/tyt-uygulama/main/install.sh | bash
+```
+
+Bu komut depoyu `~/tyt-uygulama` altına klonlar, eksikse Homebrew/Node.js'i
+kurar ve npm bağımlılıklarını yükler. Farklı bir klasöre kurmak isterseniz:
+`curl ... | bash -s -- /istediginiz/yol`
+
+Zaten klonlanmış bir kopyanız varsa, klasörün içinden de çalıştırabilirsiniz:
+
 ```bash
 ./setup.sh   # eksikse Homebrew + Node.js kurar, npm bağımlılıklarını yükler
+```
+
+**Güncelleme almak için** (yeni bir sürüm çıktığında), proje klasörünün
+içinden:
+
+```bash
+./update.sh   # git pull + npm install — çalışma veriniz ETKİLENMEZ
 ```
 
 Kurulumdan sonra, **her gün uygulamayı açmak için** proje klasöründeki
@@ -48,17 +67,24 @@ bağımlı değildir, her şey proje köküne göre çözülür.
 
 ## Veri ve Yapılandırma
 
-Kalıcı veri, düz JSON dosyaları olarak `data/` klasöründe tutulur (veritabanı
-yoktur):
+Kalıcı veri, düz JSON dosyaları olarak **proje klasörünün dışında**,
+`~/Library/Application Support/tyt-uygulama/` altında tutulur (veritabanı
+yoktur) — böylece proje klasörü silinip yeniden klonlansa/güncellense bile
+(`./update.sh`, ya da tamamen silip `install.sh` ile yeniden kurulsa bile)
+çalışma veriniz kaybolmaz. Her yazımdan önce aynı dizin altındaki
+`_yedekler/` klasörüne otomatik, zaman damgalı bir yedek alınır (bkz.
+`lib/dataGuvenligi.ts`).
 
 | Dosya | İçerik |
 |---|---|
-| `data/curriculum.json` | Müfredat (ders → konu → öncelik, süre, durum) — **otomatik üretilir** |
-| `data/schedule.json` | 90 günlük program — Panel'deki "Planı Oluştur/Yenile" butonuyla üretilir |
-| `data/log.json` | Öğrencinin girdiği günlük sonuçlar |
+| `curriculum.json` | Müfredat (ders → konu → öncelik, süre, durum) — **otomatik üretilir** |
+| `schedule.json` | 90 günlük program — Panel'deki "Planı Oluştur/Yenile" butonuyla (şifre korumalı) üretilir |
+| `log.json` | Öğrencinin girdiği günlük sonuçlar |
+| `konuDurum.json` | Adaptif oturum durumu (erken tamamlanan/ekstra oturum istenen konular) |
 
-`data/curriculum.json`, kaynak `2027_TYT_Calisma_Plani.md` dosyasından
-otomatik üretilir (dosya yoksa Panel ilk açıldığında kendiliğinden oluşur).
+`curriculum.json`, proje klasöründeki kaynak `2027_TYT_Calisma_Plani.md`
+dosyasından otomatik üretilir (dosya yoksa Panel ilk açıldığında
+kendiliğinden oluşur).
 Müfredatı elle yeniden üretmek isterseniz:
 
 ```bash
@@ -97,12 +123,18 @@ npm run lint    # eslint
 
 ```
 lib/            iş mantığı: müfredat parse, program oluşturma, log, rapor
-app/api/        REST uçları (curriculum, schedule, log, report)
+app/api/        REST uçları (curriculum, schedule, log, report, konu/*)
 app/            3 ekran (Panel, Günlük Giriş, Aksama Raporu)
 components/     istemci bileşenleri (formlar)
-data/           üretilen JSON verileri (git'e eklenmemeli)
 config.json     tüm sabit değerler
 2027_TYT_Calisma_Plani.md   kaynak müfredat verisi
 TYT_Baslat.command   çift tıkla başlat (sunucu + tarayıcı)
-setup.sh        macOS kurulum betiği (Homebrew/Node/npm install)
+install.sh      tek satırla uzaktan kurulum (curl | bash)
+setup.sh        yerel kurulum betiği (Homebrew/Node/npm install)
+update.sh       güncelleme betiği (git pull + npm install)
+uninstall.sh    kaldırma betiği (veriye varsayılan olarak dokunmaz)
 ```
+
+Çalışma verisi (`curriculum.json`, `schedule.json`, `log.json`,
+`konuDurum.json`) bu ağacın DIŞINDA, `~/Library/Application Support/tyt-uygulama/`
+altındadır — yukarıdaki "Veri ve Yapılandırma" bölümüne bakın.
