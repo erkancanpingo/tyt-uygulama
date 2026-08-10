@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Node CommonJS betiği (npx bin shim'i), Next.js uygulama kodu değil.
+    "bin/**",
   ]),
 ]);
 

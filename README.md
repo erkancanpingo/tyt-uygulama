@@ -6,15 +6,24 @@ ilerlemesini/aksamalarını takip eden, tek kullanıcılı, dosya tabanlı
 
 ## Hızlı Başlangıç (macOS)
 
-**Hiçbir şey indirmeden, tek satırla kurulum** (herhangi bir Mac'te):
+**Node.js zaten kuruluysa, en kısa yol** (2 kelime — npm paket kaydına
+yayınlamaya gerek yok, doğrudan bu GitHub deposundan çalışır):
+
+```bash
+npx erkancanpingo/tyt-uygulama
+```
+
+**Hiçbir şeyin kurulu olmadığı yepyeni bir Mac'te** (Homebrew/Node.js dahil
+her şeyi kendisi kurar, `npx` gerektirmez):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/erkancanpingo/tyt-uygulama/main/install.sh | bash
 ```
 
-Bu komut depoyu `~/tyt-uygulama` altına klonlar, eksikse Homebrew/Node.js'i
-kurar ve npm bağımlılıklarını yükler. Farklı bir klasöre kurmak isterseniz:
-`curl ... | bash -s -- /istediginiz/yol`
+İkisi de aynı işi yapar (depoyu `~/tyt-uygulama` altına klonlar, npm
+bağımlılıklarını yükler, Masaüstüne bir başlatıcı bırakır) — `npx` sadece
+daha kısa yazım, `curl` ise sıfırdan (Node.js bile yokken) çalışabilen tam
+bootstrap. Farklı bir klasöre kurmak isterseniz: `... -- /istediginiz/yol`
 
 Zaten klonlanmış bir kopyanız varsa, klasörün içinden de çalıştırabilirsiniz:
 

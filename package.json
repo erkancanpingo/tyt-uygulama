@@ -2,6 +2,9 @@
   "name": "tyt-uygulama",
   "version": "0.1.0",
   "private": true,
+  "bin": {
+    "tyt-uygulama": "./bin/tyt-baslat.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
